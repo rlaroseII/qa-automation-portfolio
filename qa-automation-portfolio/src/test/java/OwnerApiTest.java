@@ -109,4 +109,47 @@ public class OwnerApiTest {
                 .then()
                 .statusCode(204);
     }
+
+    @Test
+    public void updateOwnerReturns204() {
+        String createBody = """
+        {
+            "firstName": "Original",
+            "lastName": "Name",
+            "address": "789 Before St",
+            "city": "Oldtown",
+            "telephone": "2222222222"
+        }
+        """;
+
+        Response createResponse = given()
+                .contentType(ContentType.JSON)
+                .body(createBody)
+                .when()
+                .post("/owners")
+                .then()
+                .statusCode(201)
+                .extract()
+                .response();
+
+        int id = createResponse.jsonPath().getInt("id");
+
+        String updateBody = """
+        {
+            "firstName": "Updated",
+            "lastName": "Name",
+            "address": "789 After St",
+            "city": "Newtown",
+            "telephone": "2222222222"
+        }
+        """;
+
+        given()
+                .contentType(ContentType.JSON)
+                .body(updateBody)
+                .when()
+                .put("/owners/" + id)
+                .then()
+                .statusCode(204);
+    }
 }
