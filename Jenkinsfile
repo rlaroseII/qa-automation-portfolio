@@ -3,7 +3,9 @@ pipeline {
     stages {
         stage('Test') {
             steps {
-                sh 'mvn test -Dtest=VetApiTest,OwnerApiTest'
+                dir('qa-automation-portfolio') {
+                    sh 'mvn test -Dtest=VetApiTest,OwnerApiTest'
+                }
             }
         }
     }
