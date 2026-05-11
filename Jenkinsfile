@@ -4,8 +4,9 @@ pipeline {
         stage('Test') {
             steps {
                 dir('qa-automation-portfolio') {
+	            sh 'rm -rf target/allure-results'
                     sh 'mvn test -Dtest=VetApiTest,OwnerApiTest'
-                }
+                }i
             }
         }
     }
