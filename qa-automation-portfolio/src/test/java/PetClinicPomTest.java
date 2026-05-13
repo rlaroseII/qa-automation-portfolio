@@ -49,6 +49,22 @@ public class PetClinicPomTest {
     @Test
     public void ownerListIsNotEmpty() {
         ownerSearchPage.open();
+        ownerSearchPage.searchByLastName("");
         assertFalse(ownerSearchPage.getOwnerRows().isEmpty());
+    }
+
+    @Test
+    public void searchByLastNameReturnsResults() {
+        ownerSearchPage.open();
+        ownerSearchPage.searchByLastName("Davis");
+        assertFalse(ownerSearchPage.getOwnerRows().isEmpty());
+    }
+
+    @Test
+    public void searchByLastNameShowsCorrectOwner() {
+        ownerSearchPage.open();
+        ownerSearchPage.searchByLastName("Davis");
+        String ownerName = ownerSearchPage.getFirstOwnerName();
+        assertTrue(ownerName.contains("Davis"));
     }
 }

@@ -13,6 +13,8 @@ public class OwnerSearchPage {
     private WebDriver driver;
     private WebDriverWait wait;
     private By ownerTableRows = By.cssSelector("table.table tbody tr");
+    private By lastNameInput = By.id("lastName");
+    private By searchButton = By.cssSelector("button[type='submit']");
 
     public OwnerSearchPage(WebDriver driver) {
         this.driver = driver;
@@ -20,15 +22,27 @@ public class OwnerSearchPage {
     }
 
     public void open() {
-        driver.get("http://localhost:8080/owners?lastName=");
+        driver.get("http://localhost:8080/owners/find");
     }
 
     public boolean isLoaded() {
         return driver.getCurrentUrl().contains("/owners");
     }
 
+    public void searchByLastName(String lastName) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(lastNameInput));
+        driver.findElement(lastNameInput).clear();
+        driver.findElement(lastNameInput).sendKeys(lastName);
+        driver.findElement(searchButton).click();
+    }
+
     public List<WebElement> getOwnerRows() {
         wait.until(ExpectedConditions.presenceOfElementLocated(ownerTableRows));
         return driver.findElements(ownerTableRows);
+    }
+
+    public String getFirstOwnerName() {
+        wait.until(ExpectedConditions.presenceOfElementLocated(ownerTableRows));
+        return driver.findElement(By.cssSelector("table.table tbody tr td a")).getText();
     }
 }
