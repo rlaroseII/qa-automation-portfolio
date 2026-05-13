@@ -10,7 +10,7 @@ public class OwnerApiTest {
 
     @BeforeEach
     public void setup() {
-        RestAssured.baseURI = "http://petclinic:9966/petclinic/api";
+        RestAssured.baseURI = "http://10.0.0.120:9966/petclinic/api";
     }
 
 
