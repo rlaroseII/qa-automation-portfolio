@@ -11,7 +11,7 @@ public class VetApiTest {
 
     @BeforeEach
     public void setup() {
-        RestAssured.baseURI = "http://10.0.0.120:9966/petclinic/api";
+        RestAssured.baseURI = "http://10.0.0.249:9966/petclinic/api";
     }
 
     @Test
